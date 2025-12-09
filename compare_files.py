@@ -3,9 +3,11 @@ import difflib
 import sys
 from pathlib import Path
 
+# Reads a file and returns all its lines as a list
 def read_lines(path: str):
     return Path(path).read_text(encoding="utf-8", errors="replace").splitlines(True)
 
+# Cleans up each line so formatting differences don't make a false comparison
 def normalize_light(lines):
     out = []
     for ln in lines:
@@ -16,6 +18,7 @@ def normalize_light(lines):
         out.append(ln)
     return out
 
+# Combines wrapped text lines into full paragraphs
 def normalize_prose(lines):
     out = []
     paragraph = []
@@ -36,6 +39,7 @@ def normalize_prose(lines):
 
 BRACKETS = {"(": ")", "[": "]", "{": "}"}
 
+# Combines logically connected lines of code into one line
 def normalize_code(lines):
     out = []
     buf = []
@@ -78,6 +82,7 @@ def normalize_code(lines):
     flush()
     return out
 
+# Choose what type of normalization method to use
 def normalize(lines, mode):
     lines = normalize_light(lines)
 
@@ -90,6 +95,7 @@ def normalize(lines, mode):
     else:
         raise ValueError("Invalid normalization mode.")
     
+# Prints which line of the old file matches which line of the new file
 def print_line_mapping(old_lines, new_lines):
     sm = difflib.SequenceMatcher(a=old_lines, b=new_lines)
 
