@@ -101,7 +101,7 @@ def print_line_mapping(old_lines, new_lines):
 
     for tag, i1, i2, j1, j2 in sm.get_opcodes():
         if tag == "equal":
-            for old_i, new_i, in zip(range(i1, i2), range(j1, j2)):
+            for old_i, new_i in zip(range(i1, i2), range(j1, j2)):
                 print(f"{old_i + 1}-{new_i + 1}")
 
 def main():
