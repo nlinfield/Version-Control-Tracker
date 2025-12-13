@@ -1,3 +1,6 @@
+# Compares two versions of a file and prints which lines from the old file
+# exactly match lines in the new file, using optional normalization modes
+
 import argparse
 import difflib
 import sys
@@ -99,6 +102,7 @@ def normalize(lines, mode):
 def print_line_mapping(old_lines, new_lines):
     sm = difflib.SequenceMatcher(a=old_lines, b=new_lines)
 
+    # Only "equal" blocks mean exact lines are identical
     for tag, i1, i2, j1, j2 in sm.get_opcodes():
         if tag == "equal":
             for old_i, new_i in zip(range(i1, i2), range(j1, j2)):
