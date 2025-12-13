@@ -3,7 +3,6 @@
 
 import argparse
 import difflib
-import sys
 from pathlib import Path
 
 # Reads a file and returns all its lines as a list
